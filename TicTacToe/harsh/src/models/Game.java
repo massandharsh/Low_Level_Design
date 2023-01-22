@@ -57,7 +57,7 @@ public class Game {
         noOfOccupiedCells--;
     }
     public void redo(){
-        if(undoIndex + 1 > moves.size()){
+        if(undoIndex + 1 >= moves.size()){
             throw new NoRedoPossibleException("redo not possible");
         }
         playerNextMoveIndex = (playerNextMoveIndex + 1) % players.size();
