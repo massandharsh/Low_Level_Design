@@ -180,11 +180,16 @@ public class Game {
             this.winningStrategies = winningStrategies;
             return this;
         }
-        public Game build(){
+        private void validationHelper(){
             if(!GameBuilderValidator.validateMaxBoardSize(boardSize)) throw new BoardSizeInvalidException("Max board size invalid");
             if(!GameBuilderValidator.validateMinBoardSize(boardSize)) throw new BoardSizeInvalidException("Min board size invalid");
             if(!GameBuilderValidator.validateMaxNumberOfPlayers(boardSize,players.size())) throw new MaxPlayerExceedException("Max Player exceeded");
             if(!GameBuilderValidator.validateMinNumberOfPlayers(players.size())) throw new InsufficientPlayersException("Min Players should be more");
+            if(!GameBuilderValidator.validateBotCounter(players)) throw new NumberOfBotsException("Bots more than expected");
+            if(!GameBuilderValidator.validateUniqueSymbols(players)) throw new SymbolRepeatingException("Symbols are repeating for players");
+        }
+        public Game build(){
+            validationHelper();
             return new Game(this);
         }
     }
